@@ -20,7 +20,7 @@ def getdata(site_id, access_token):
 class handler(BaseHTTPRequestHandler):
     def do_GET(self):
         path = self.path
-        print(path)
+        # print(path)
         # param = path.split('?')[1]
         # site_id = param.split('&')[0].split("id=")[1]
         # access_token = param.split('&')[1].split("token=")[1]
@@ -29,5 +29,5 @@ class handler(BaseHTTPRequestHandler):
         self.send_header('Access-Control-Allow-Origin', '*')
         self.send_header('Content-type', 'application/json')
         self.end_headers()
-        self.wfile.write(json.dumps(data).encode('utf-8'))
+        self.wfile.write(path)
         return
