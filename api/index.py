@@ -23,7 +23,7 @@ def get_data(site_id, access_token):
         'method ': 'overview/getTimeTrendRpt'
     }
     req = requests.post(url=url, data=param)
-    return req.text
+    return req.json()
 
 
 class handler(BaseHTTPRequestHandler):
