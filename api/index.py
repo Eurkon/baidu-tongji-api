@@ -5,7 +5,7 @@ import requests
 from http.server import BaseHTTPRequestHandler
 from dateutil.relativedelta import relativedelta
 from datetime import datetime
-from urlparse import parse_qs
+from urllib.parse import parse_qs
 
 
 def getdata(site_id, access_token):
