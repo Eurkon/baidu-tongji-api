@@ -8,7 +8,7 @@ from datetime import datetime
 from urllib.parse import parse_qs
 
 
-def get_data(site_id, access_token):
+def get_data(site_id, access_token, metrics):
     end_date = datetime.now().strftime('%Y-%m-%d')
     year_ago = datetime.now() - relativedelta(years=1)
     start = datetime.now() - relativedelta(years=1, days=(5 - year_ago.weekday()))
@@ -19,7 +19,7 @@ def get_data(site_id, access_token):
         'site_id': site_id,
         'start_date': start_date,
         'end_date': end_date,
-        'metrics': 'pv_count',
+        'metrics': metrics,
         'method ': 'overview/getTimeTrendRpt'
     }
     req = requests.post(url=url, data=param)
@@ -29,8 +29,8 @@ def get_data(site_id, access_token):
 class handler(BaseHTTPRequestHandler):
     def do_GET(self):
         path = self.path
-        param = parse_qs(path.split('?')[1])
-        data = get_data(param['id'], param['token'])
+        params = parse_qs(path.split('?')[1])
+        data = get_data(params['id'], params['token'], params['metrics'])
         self.send_response(200)
         self.send_header('Access-Control-Allow-Origin', '*')
         self.send_header('Content-type', 'application/json')
