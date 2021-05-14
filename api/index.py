@@ -3,26 +3,12 @@
 import json
 import requests
 from http.server import BaseHTTPRequestHandler
-from dateutil.relativedelta import relativedelta
-from datetime import datetime
 from urllib.parse import parse_qs
 
 
-def get_data(site_id, access_token, metrics):
-    end_date = datetime.now().strftime('%Y-%m-%d')
-    year_ago = datetime.now() - relativedelta(years=1)
-    start = datetime.now() - relativedelta(years=1, days=(5 - year_ago.weekday()))
-    start_date = start.strftime('%Y-%m-%d')
+def get_data(params):
     url = 'https://openapi.baidu.com/rest/2.0/tongji/report/getData?'
-    param = {
-        'access_token': access_token,
-        'site_id': site_id,
-        'start_date': start_date,
-        'end_date': end_date,
-        'metrics': metrics,
-        'method ': 'overview/getTimeTrendRpt'
-    }
-    req = requests.post(url=url, data=param)
+    req = requests.post(url=url, data=params)
     return req.json()
 
 
@@ -30,7 +16,7 @@ class handler(BaseHTTPRequestHandler):
     def do_GET(self):
         path = self.path
         params = parse_qs(path.split('?')[1])
-        data = get_data(params['id'], params['token'], params['metrics'])
+        data = get_data(params)
         self.send_response(200)
         self.send_header('Access-Control-Allow-Origin', '*')
         self.send_header('Content-type', 'application/json')
