@@ -8,7 +8,7 @@ from urllib.parse import parse_qs
 
 def get_data(params):
     url = 'https://openapi.baidu.com/rest/2.0/tongji/report/getData?'
-    req = requests.post(url=url, data=params)
+    req = requests.get(url=url, data=params)
     return req.json()
 
 
