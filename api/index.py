@@ -14,8 +14,7 @@ def get_data(params):
 
 class handler(BaseHTTPRequestHandler):
     def do_GET(self):
-        path = self.path
-        params = parse_qs(path.split('?')[1])
+        params = dict(parse.parse_qsl(urlparse(self.path).query))
         data = get_data(params)
         self.send_response(200)
         self.send_header('Access-Control-Allow-Origin', '*')
