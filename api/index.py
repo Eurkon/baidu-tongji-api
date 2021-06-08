@@ -2,8 +2,9 @@
 
 import json
 import requests
+from urllib import parse
+from urllib.parse import urlparse
 from http.server import BaseHTTPRequestHandler
-from urllib.parse import parse_qs
 
 
 def get_data(params):
