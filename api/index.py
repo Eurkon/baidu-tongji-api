@@ -2,8 +2,10 @@
 # @Author    : Eurkon
 # @Date      : 2021/6/5 10:19
 
+import os
 import json
 import requests
+import leancloud
 from urllib import parse
 from urllib.parse import urlparse
 from http.server import BaseHTTPRequestHandler
@@ -18,6 +20,24 @@ def get_data(params):
     Returns:
         json: 百度统计返回的网页统计数据
     """
+    
+    if 'access_token' not in params:
+        try:
+            # 通过 LeanCloud 获取百度统计 Access Token
+            app_id = os.environ["APPID"]  # LeanCloud AppID
+            app_key = os.environ["APPKEY"]  # LeanCloud AppKey
+
+            leancloud.init(app_id, app_key)
+            token = leancloud.Object.extend('BaiduToken')
+            query = token.query
+            query.select('accessToken')
+            token_data = query.first()
+            access_token = token_data.get('accessToken')  # 百度统计 Access Token
+
+            params['access_token'] = access_token
+        except:
+            pass
+
     url = 'https://openapi.baidu.com/rest/2.0/tongji/report/getData?'
     req = requests.post(url=url, data=params)
     return req.json()
