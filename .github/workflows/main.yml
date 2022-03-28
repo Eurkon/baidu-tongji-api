@@ -1,0 +1,45 @@
+name: update-token
+
+on: 
+  push:
+    branches: 
+     - master
+  schedule:
+    - cron: "0 0,6,12,18,21 * * *"
+  watch:
+    types: [started]
+
+env:
+  # 在这里查看需要添加的secert
+  # leancloud配置
+  APPID: ${{ secrets.APPID }}
+  APPKEY: ${{ secrets.APPKEY }}
+  # 百度统计配置
+  APIKEY: ${{ secrets.APIKEY }}
+  SECRETKEY: ${{ secrets.SECRETKEY }}
+  
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    if: github.event.repository.owner.id == github.event.sender.id  # 自己点的 start
+    steps:
+    - name: Checkout
+      uses: actions/checkout@master
+
+    - name: Set up Python
+      uses: actions/setup-python@v1
+      with:
+        python-version: 3.8
+
+    - name: Install requirements
+      run: |
+        pip install -r requirements.txt
+    - name: leancloud Update token # leancloud
+      env:
+        APP_ID: ${{ secrets.APPID }}
+        APP_KEY: ${{ secrets.APPKEY }}
+        APIKEY: ${{ secrets.APIKEY }}
+        SECRETKEY: ${{ secrets.SECRETKEY }}
+      working-directory: ./token
+      run: | 
+        python run.py
