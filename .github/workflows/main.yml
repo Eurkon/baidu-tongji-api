@@ -8,12 +8,6 @@ on:
     - cron: "0 0,6,12,18,21 * * *"
   watch:
     types: [started]
-    
-env:
-  APP_ID: ${{ secrets.APPID }} # LeanCloud
-  APP_KEY: ${{ secrets.APPKEY }} # LeanCloud
-  APIKEY: ${{ secrets.APIKEY }} # 百度统计
-  SECRETKEY: ${{ secrets.SECRETKEY }} # 百度统计
 
 jobs:
   build:
@@ -33,10 +27,12 @@ jobs:
         pip install -r requirements.txt
     - name: leancloud Update token # leancloud
       env:
-        APP_ID: ${{ secrets.APPID }}
-        APP_KEY: ${{ secrets.APPKEY }}
+        # leancloud配置
+        APPID: ${{ secrets.APPID }}
+        APPKEY: ${{ secrets.APPKEY }}
+        # 百度统计配置
         APIKEY: ${{ secrets.APIKEY }}
-        SECRETKEY: ${{ secrets.SECRETKEY }}
+        SECRETKEY: ${{ secrets.SECRETKEY }
       working-directory: ./token
       run: | 
         python run.py
