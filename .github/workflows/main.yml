@@ -32,7 +32,7 @@ jobs:
         APPKEY: ${{ secrets.APPKEY }}
         # 百度统计配置
         APIKEY: ${{ secrets.APIKEY }}
-        SECRETKEY: ${{ secrets.SECRETKEY }
+        SECRETKEY: ${{ secrets.SECRETKEY }}
       working-directory: ./token
       run: | 
         python run.py
