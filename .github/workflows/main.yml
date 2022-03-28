@@ -8,7 +8,12 @@ on:
     - cron: "0 0,6,12,18,21 * * *"
   watch:
     types: [started]
-  
+    
+env:
+    APP_ID: ${{ secrets.APPID }} # LeanCloud
+    APP_KEY: ${{ secrets.APPKEY }} # LeanCloud
+    APIKEY: ${{ secrets.APIKEY }} # 百度统计
+    SECRETKEY: ${{ secrets.SECRETKEY }} # 百度统计
 jobs:
   build:
     runs-on: ubuntu-latest
