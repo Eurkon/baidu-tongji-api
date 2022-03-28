@@ -8,15 +8,6 @@ on:
     - cron: "0 0,6,12,18,21 * * *"
   watch:
     types: [started]
-
-env:
-  # 在这里查看需要添加的secert
-  # leancloud配置
-  APPID: ${{ secrets.APPID }}
-  APPKEY: ${{ secrets.APPKEY }}
-  # 百度统计配置
-  APIKEY: ${{ secrets.APIKEY }}
-  SECRETKEY: ${{ secrets.SECRETKEY }}
   
 jobs:
   build:
