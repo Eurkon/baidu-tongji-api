@@ -3,9 +3,9 @@ name: update-token
 on: 
   push:
     branches: 
-     - main
+      - main
   schedule:
-     - cron: "00 11 * * 2" # 每周二执行
+    - cron: "30 11 * * 2"
   watch:
     types: [started]
 
