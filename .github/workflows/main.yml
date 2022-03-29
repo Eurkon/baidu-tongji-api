@@ -5,7 +5,7 @@ on:
     branches: 
      - main
   schedule:
-    - cron: "00 11 * * 2" # 每周二执行
+     - cron: "00 11 * * 2" # 每周二执行
   watch:
     types: [started]
 
