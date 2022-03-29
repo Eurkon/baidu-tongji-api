@@ -4,7 +4,6 @@
 
 import os
 import json
-import sys
 import requests
 import leancloud
 from urllib import parse
@@ -23,8 +22,6 @@ def get_data(params):
     """
 
     if 'access_token' not in params:
-        BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-        sys.path.append(BASE_DIR)
         # 通过 LeanCloud 获取百度统计 Access Token
         app_id = os.environ["APPID"]  # LeanCloud AppID
         app_key = os.environ["APPKEY"]  # LeanCloud AppKey
@@ -37,7 +34,7 @@ def get_data(params):
         params['access_token'] = access_token
 
     url = 'https://openapi.baidu.com/rest/2.0/tongji/report/getData?'
-    req = requests.get(url=url, data=params)
+    req = requests.post(url=url, data=params)
     return req.json()
 
 
