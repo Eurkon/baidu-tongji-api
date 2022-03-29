@@ -5,7 +5,7 @@ on:
     branches: 
       - main
   schedule:
-    - cron: "0 5 * * *" # 每周二12点，Github 4点
+    - cron: "0 0 * * 0" # 每周日8点，Github 0点
   watch:
     types: [started]
 
