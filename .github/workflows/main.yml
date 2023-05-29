@@ -6,13 +6,13 @@ on:
       - main
   schedule:
     - cron: "0 0 * * 0" # 每周日8点，Github 0点
-  watch:
-    types: [started]
+#   watch:
+#     types: [started]
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    if: github.event.repository.owner.id == github.event.sender.id  # 自己点的 start
+#     if: github.event.repository.owner.id == github.event.sender.id  # 自己点的 start
     steps:
     - name: Checkout
       uses: actions/checkout@master
